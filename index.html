@@ -1,0 +1,275 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Syntaxify</title>
+  <style>
+    :root{
+      --bg:#000;
+      --fg:#c071c9;
+    }
+    html,body{
+      height:100%;
+      margin:0;
+      background:var(--bg);
+      color:var(--fg);
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono","Courier New", monospace;
+    }
+
+    /* Fade to the next page */
+    body.fade-out{
+      opacity:0;
+      transition: opacity .55s ease;
+    }
+
+    .screen{
+      height:100%;
+      padding:24px;
+      display:flex;
+      align-items:flex-start;
+      justify-content:flex-start;
+    }
+
+    .term{
+      white-space:pre-wrap;
+      font-size:18px;
+      line-height:1.55;
+    }
+
+    .row{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      flex-wrap:nowrap;
+    }
+
+    input{
+      background:transparent;
+      border:none;
+      outline:none;
+      color:var(--fg);
+      font:inherit;
+      width:2ch;
+      caret-color: transparent;
+      padding:0;
+      margin:0;
+      position:absolute;
+      inset:0;
+      width:100%;
+      opacity:0;
+    }
+
+    .input-shell{
+      position:relative;
+      display:inline-flex;
+      align-items:center;
+      min-width:1ch;
+    }
+
+    .typed{
+      display:inline-block;
+      min-width:1ch;
+    }
+
+    .cursor{
+      display:inline-block;
+      width:10px;
+      height:1.1em;
+      background:var(--fg);
+      animation: blink 1s steps(1) infinite;
+      transform: translateY(2px);
+    }
+    @keyframes blink { 50%{opacity:0} }
+  </style>
+</head>
+<body>
+    <div class="screen">
+    <div class="term" id="term">
+      <div class="row">
+        <span id="question">start? (y/n)</span>
+        <span class="input-shell">
+          <span class="typed" id="typed" aria-hidden="true"></span>
+          <input id="in" autocomplete="off" spellcheck="false" />
+        </span>
+        <span class="cursor" aria-hidden="true"></span>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const NEXT = "startseite.html"; // target page
+    const term = document.getElementById("term");
+    const input = document.getElementById("in");
+    const typed = document.getElementById("typed");
+
+    input.focus();
+    document.addEventListener("click", () => input.focus());
+
+    function syncTyped(){
+      typed.textContent = input.value || "";
+    }
+
+    function lock(v){
+      input.disabled = v;
+      if(v){
+        input.blur();
+      }else{
+        input.focus();
+      }
+    }
+
+    function addLine(text){
+      const div = document.createElement("div");
+      div.textContent = text;
+      term.insertBefore(div, term.lastElementChild); // before the input line
+      window.scrollTo(0, document.body.scrollHeight);
+    }
+
+    async function typeLine(text, speed=22){
+      addLine(""); // empty line that we fill character by character
+      const line = term.children[term.children.length - 2]; // most recently inserted line
+      for(let i=0;i<text.length;i++){
+        line.textContent += text[i];
+        await new Promise(r => setTimeout(r, speed));
+      }
+    }
+
+    function fadeTo(url){
+      lock(true);
+      document.body.classList.add("fade-out");
+      setTimeout(() => window.location.replace(url), 560);
+    }
+
+  async function runYes() {
+  lock(true);
+
+  const sleep = (ms) => new Promise(r => setTimeout(r, ms));
+  const lines = [
+    ">>> Boot sequence initiated",
+    "loading kernel...",
+    "kernel loaded",
+    "mounting /dev...",
+    "mounting /sys...",
+    "mounting /proc...",
+    "initializing memory manager...",
+    "allocating buffers...",
+    "buffers ready",
+    "starting cpu threads...",
+    "thread #1 online",
+    "thread #2 online",
+    "thread #3 online",
+    "thread #4 online",
+    "checking hardware...",
+    "gpu detected",
+    "audio device detected",
+    "network adapter detected",
+    "initializing network stack...",
+    "dhcp request sent",
+    "ip assigned",
+    "establishing secure tunnel...",
+    "encryption enabled",
+    "loading security modules...",
+    "firewall active",
+    "checking file system...",
+    "filesystem clean",
+    "loading drivers...",
+    "driver: keyboard OK",
+    "driver: mouse OK",
+    "driver: display OK",
+    "driver: storage OK",
+    "initializing services...",
+    "service auth started",
+    "service db started",
+    "service cache started",
+    "service api started",
+    "service ui started",
+    "syncing configuration...",
+    "applying patches...",
+    "patch 1 applied",
+    "patch 2 applied",
+    "patch 3 applied",
+    "optimizing performance...",
+    "warming up runtime...",
+    "compiling shaders...",
+    "linking modules...",
+    "verifying integrity...",
+    "final checks...",
+    "system stable",
+    ">>> READY"
+  ];
+
+  // TURBO MODE
+  for (let i = 0; i < lines.length; i++) {
+    typeLine(lines[i], 2); 
+    await sleep(10);      
+  }
+
+  await sleep(150);
+  fadeTo(NEXT);
+  }
+
+    async function runNo() {
+    lock(true);
+    const sleep = (ms) => new Promise(r => setTimeout(r, ms));
+
+       const asciiLines = [
+            "⠀⠀⠀⠀⠀⠀⠀⠀⣀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀ ⣀⡀⠀⠀⠀⠀",
+            "⠀⠀⠀⠀⣠⣴⡿⠋⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠻⣷⣤⡀⠀",
+            "⠀⠀⢀⣾⡟⡍⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀ ⠐⡙⣿⡄",
+            "⠀⠀⣸⣿⠃⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀  ⠇⣹⣿",
+            "⠀⠀⣿⣿⡆⢚⢄⣀⣠⠤⠒⠈⠁⠀⠀⠈⠉⠐⠢⢄⡀⣀⢞⠀⣾⣿",
+            "⠀⠀⠸⣿⣿⣅⠄⠙⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡟⠑⣄⣽⣿⡟",
+            "⠀⠀⠀⠘⢿⣿⣟⡾⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠱⣾⣿⣿⠏⠀",
+            "⠀⠀⠀⠀⣸⠉⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⡉⢻⠀⠀",
+            "⠀⠀⠀⠀⢿⠀⢃⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣰⠁⢸⠀⠀",
+            "⠀⠀⠀⠀⢸⢰⡿⢘⣦⣤⣀⠑⢦⡀⠀⣠⠖⣁⣤⣴⡊⢸⡇⠀⠀",
+            "⠀⠀⠀⠀⠀⠾⡅⣿⣿⣿⣿⣿⠌⠁⠀⠁⢺⣿⣿⣿⣿⠆⣇⠀⠀",
+            "⠀⠀⠀⠀⠀⢀⠂⠘⢿⣿⣿⡿⠀⣰⣦⠀⠸⣿⣿⡿⠋⠈⢀⠀⠀⠀",
+            "⠀⠀⠀⠀⠀⢠⠀⠀⠀⠀⠀⠀⢠⣿⢻⣆⠀⠀⠀⠀⠀⠀  ⣸⠀⠀⠀",
+            "⠀⠀⠀⠀⠀⠈⠓⠶⣶⣦⠤⠀⠘⠋⠘⠋⠀ ⠠⣴⣶⡶⠞⠃⠀⠀⠀",
+            "⠀⠀⠀⠀⠀⠀⠀ ⣿ ⢹⣷⠦⢀⠤⡤⡆⡤⣶⣿ ⢸⠇⠀⠀⠀⠀⠀",
+            "⠀⠀⠀⠀⠀⠀⠀ ⢰⡀⠘⢯⣳⢶⠦⣧⢷⢗⣫⠇⡸⠀⠀⠀⠀⠀",
+            "⠀⠀⠀⠀⠀⠀⠀⠀ ⠑⢤⡀⠈⠋⠛⠛⠋⠉ ⡠⠒⠁⠀⠀⠀⠀⠀",
+            "⠀⠀⠀⠀⠀⠀⠀⠀⠀ ⠀⠹⢦⠀⢀⣀⠀⣠⠞⠁⠀⠀⠀⠀⠀⠀⠀",
+            "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀ ⠀⠀⠈⠉⠉⠉⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀"
+       ];
+
+        for (let i = 0; i < asciiLines.length; i++) {
+            await typeLine(asciiLines[i], 1);
+        }
+
+        await typeLine("      You don't have a choice...  ", 100);
+
+        // Redirect after the animation
+        fadeTo(NEXT);
+    }
+
+    input.addEventListener("input", () => {
+      syncTyped();
+    });
+
+    input.addEventListener("keydown", async (e) => {
+      if(e.key !== "Enter") return;
+
+      const v = (input.value || "").trim().toLowerCase();
+      addLine("> " + v);
+
+      if(v === "y") return runYes();
+      if(v === "n") return runNo();
+
+      // invalid input: stay calm, reset immediately
+      await typeLine("y or n.", 18);
+      input.value = "";
+      syncTyped();
+      lock(false);
+    });
+
+    // Optional: allow direct typing without pressing Enter
+    // input.addEventListener("input", () => input.value = input.value.replace(/[^ynYN]/g,""));
+
+    syncTyped();
+  </script>
+</body>
+</html>
+
