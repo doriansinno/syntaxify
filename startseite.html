@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Syntaxify</title>
+        <link rel="icon" href="bilder/logotab.png" type="image/png">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="design.css">
+    </head>
+    <body class="landing-page">
+    <div class="code-background" aria-hidden="true">
+        <div class="code-background-glow"></div>
+        <div id="codeLinesLayer" class="code-lines-layer"></div>
+    </div>
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+        <div class="container-fluid">
+            <a class="navbar-brand">
+               <img src="bilder/logonav.png" alt="Brogram Logo" height="50">
+            </a>
+            <div class="collapse navbar-collapse d-none d-lg-flex" id="menu">
+                <ul class="navbar-nav ms-auto align-items-lg-center">
+                    <li class="nav-item"><a class="nav-link" href="#about" data-i18n="nav_about">About Us</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#team" data-i18n="nav_team">Team</a></li>
+                    <li class="nav-item ms-lg-3">
+                        <button class="btn btn-bb px-4" type="button" data-auth="guest" data-open-auth-modal="registerModal" data-i18n="nav_register">Register</button>
+                        <button class="btn btn-bb px-4 ms-2" type="button" data-auth="guest" data-open-auth-modal="loginModal" data-i18n="nav_login">Login</button>
+                        <button class="btn btn-bb px-4 ms-2 d-none" data-auth="logout" data-i18n="nav_logout">Logout</button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        <div class="p-5 divfarbe text-white shadow hero-card">
+            <h1 class="display-3 fw-bold">Syntaxify("HelloWorld!");</h1>
+            <hr class="hr-startseite">
+            <div class="d-flex flex-row align-items-start justify-content-between mt-3">
+                <div class="text-content me-4" style="flex: 1;">
+                    <p class="lead text-start" style="max-width: 700px;" data-i18n="start_hero_text">Learn programming logic step by step, test ideas instantly, and continue your projects whenever you come back.</p>
+                    <p></p>
+                    <p></p>
+                    <a class="btn btn-bb btn-lg px-4" href="#" data-auth-start="hauptmenue.html" role="button" data-i18n="start_now">Start Now</a>
+                </div>
+
+                <div class="image-content hero-image-wrap" style="flex: 1; text-align: right;">
+                    <img src="bilder/logostartseite.png" alt="Illustration" class="img-fluid hero-floating-logo" style="max-width: 400px;">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="about" class="container mt-5">
+        <div class="p-4 divfarbe text-white rounded-4 shadow">
+            <h2 class="fw-bold gradient-text mb-2" data-i18n="about_title">About Us</h2>
+            <hr class="hr-sonstiges">
+            <p class="lead text-start mb-0" style="max-width: 700px;" data-i18n="about_text">Syntaxify is a learning space for coding tasks, turning ideas into code, and running small experiments with Python, JavaScript, and C.</p>
+        </div>
+    </div>
+
+    <div id="team" class="container mt-5">
+        <div class="p-4 divfarbe text-white rounded-4 shadow">
+            <h2 class="fw-bold mb-2" data-i18n="team_title">Our Team</h2>
+            <hr class="hr-sonstiges">
+
+            <div class="d-flex flex-row align-items-start justify-content-between mt-3">
+                <div class="p-4 divfarbeteam text-white rounded-4 shadow">
+                    <div class="image-content" style="flex: 1; text-align: right;">
+                        <img src="bilder/sarahleyrer.png" alt="Illustration" class="img-fluid rounded img-groesse">
+                        <p class="text-center mt-2" data-i18n="role_lead">Project Lead</p>
+                        <p class="text-center schriftfarbe-team" data-i18n="role_frontend">Frontend</p>
+                    </div>
+                </div>
+
+                <div class="p-4 divfarbeteam text-white rounded-4 shadow">
+                    <div class="image-content" style="flex: 1; text-align: right;">
+                        <img src="bilder/alexanderpollak.png" alt="Illustration" class="img-fluid rounded img-groesse">
+                        <p class="text-center mt-2" data-i18n="role_member">Project Team Member</p>
+                        <p class="text-center schriftfarbe-team" data-i18n="role_frontend">Frontend</p>
+                    </div>
+                </div>
+
+                <div class="p-4 divfarbeteam text-white rounded-4 shadow">
+                    <div class="image-content content" style="flex: 1; text-align: right;">
+                        <img src="bilder/doriansinno.png" alt="Illustration" class="img-fluid rounded img-groesse">
+                        <p class="text-center mt-2" data-i18n="role_member">Project Team Member</p>
+                        <p class="text-center schriftfarbe-team" data-i18n="role_backend">Backend</p>
+                    </div>
+                </div>
+
+                <div class="p-4 divfarbeteam text-white rounded-4 shadow">
+                    <div class="image-content" style="flex: 1; text-align: right;">
+                        <img src="bilder/dariscoric.png" alt="Illustration" class="img-fluid rounded img-groesse">
+                        <p class="text-center mt-2" data-i18n="role_member">Project Team Member</p>
+                        <p class="text-center schriftfarbe-team" data-i18n="role_backend">Backend</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="auth-modal" id="registerModal" hidden aria-hidden="true">
+        <div class="auth-modal-backdrop" data-close-auth-modal="registerModal"></div>
+        <div class="auth-modal-panel divfarbe text-white" role="dialog" aria-modal="true" aria-labelledby="registerModalTitle">
+            <div class="auth-modal-header border-0">
+                <h5 class="modal-title" id="registerModalTitle" data-i18n="register_title">Register</h5>
+                <button type="button" class="btn-close btn-close-white" data-close-auth-modal="registerModal" aria-label="Close"></button>
+            </div>
+            <div class="auth-modal-body">
+                <form id="registerForm">
+                    <div class="mb-3">
+                        <label class="form-label" for="registerUsername" data-i18n="register_username">Username</label>
+                        <input class="form-control" id="registerUsername" minlength="3" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" for="registerPassword" data-i18n="register_password">Password</label>
+                        <input class="form-control" id="registerPassword" type="password" minlength="6" required>
+                    </div>
+                    <button class="btn btn-bb w-100" type="submit" data-i18n="register_submit">Create Account</button>
+                    <p id="registerFeedback" class="small mt-2"></p>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="auth-modal" id="loginModal" hidden aria-hidden="true">
+        <div class="auth-modal-backdrop" data-close-auth-modal="loginModal"></div>
+        <div class="auth-modal-panel divfarbe text-white" role="dialog" aria-modal="true" aria-labelledby="loginModalTitle">
+            <div class="auth-modal-header border-0">
+                <h5 class="modal-title" id="loginModalTitle" data-i18n="login_title">Login</h5>
+                <button type="button" class="btn-close btn-close-white" data-close-auth-modal="loginModal" aria-label="Close"></button>
+            </div>
+            <div class="auth-modal-body">
+                <form id="loginForm">
+                    <div class="mb-3">
+                        <label class="form-label" for="loginUsername" data-i18n="register_username">Username</label>
+                        <input class="form-control" id="loginUsername" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" for="loginPassword" data-i18n="register_password">Password</label>
+                        <input class="form-control" id="loginPassword" type="password" required>
+                    </div>
+                    <button class="btn btn-bb w-100" type="submit" data-i18n="login_submit">Log In</button>
+                    <p id="loginFeedback" class="small mt-2"></p>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <footer class="mt-5">
+        <div class="container text-center py-4">
+            <hr class="footer-hr">
+            <h5 class="fw-bold mb-2">Brogram</h5>
+            <p class="mb-2">(c) 2026 Brogram</p>
+            <p class="mb-0"><a href="dsgvo.html" class="footer-link" data-i18n="footer_privacy">Privacy</a></p>
+            <p class="mb-0"><a href="impressum.html" class="footer-link" data-i18n="footer_imprint">Legal Notice</a></p>
+        </div>
+    </footer>
+    <script src="auth.js"></script>
+    <script>
+        (function () {
+            const layer = document.getElementById("codeLinesLayer");
+            if (!layer) return;
+
+            const snippets = [
+                'for (let i = 0; i < tasks.length; i++) { solve(tasks[i]); }',
+                'function login(user, password) { return user && password; }',
+                'const result = numbers.reduce((sum, value) => sum + value, 0);',
+                'while (current < target) { current += step; }',
+                'if (score >= 90) { level = "hard"; }',
+                'history.push({ title, code, createdAt: Date.now() });',
+                'const output = prompt.split("\\n").filter(Boolean);',
+                'function translateIdea(idea) { return idea.trim(); }',
+                'for number in values: total += number',
+                'def find_max(values): return max(values)',
+                'if (input % 2 === 0) { console.log("even"); }',
+                'const nextState = { ...state, done: true };',
+                'printf("Welcome to Syntaxify\\n");',
+                'sum_total = 0; for value in numbers: sum_total += value',
+                'const answer = entries.map(entry => entry.title).join(", ");',
+                'if (tank < 0 || tank > maxTank) { alarm = true; }'
+            ];
+
+            const lineCount = window.innerWidth < 768 ? 10 : 16;
+
+            for (let i = 0; i < lineCount; i++) {
+                const line = document.createElement("div");
+                const text = snippets[i % snippets.length];
+                const duration = 16 + Math.random() * 14;
+                const delay = Math.random() * 8;
+                const top = (i * (100 / lineCount)) + Math.random() * 2;
+                const chars = Math.max(18, Math.floor(text.length * (0.45 + Math.random() * 0.8)));
+
+                line.className = "code-line";
+                line.style.top = `${Math.min(top, 94)}%`;
+                line.style.animationDuration = `${duration}s`;
+                line.style.animationDelay = `-${delay}s`;
+                line.style.setProperty("--chars", chars);
+                line.textContent = text;
+                layer.appendChild(line);
+            }
+        })();
+    </script>
+    </body>
+</html>
