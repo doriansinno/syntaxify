@@ -1,94 +1,66 @@
-﻿# Syntaxify - Simple Setup
+# Syntaxify
 
-Dieses Projekt nutzt:
-- Frontend (Website)
-- Node.js Backend fuer KI-Generierung
+> A tool to learn programming logic by thinking, not memorizing syntax.
 
-## Was passiert wo?
+Syntaxify is a web-based learning tool designed to help users understand programming logic without needing to know syntax.  
+It translates natural language into executable code using AI and allows users to run code directly in the browser.
 
-- **Code-Generierung**: Backend `POST /generate` (OpenAI)
-- **Code-Ausfuehrung**:
-  - JavaScript: im Browser
-  - Python: im Browser via Pyodide
-  - C: am Backend via `POST /execute` (gcc)
+## Features
+- Learn programming logic without writing syntax
+- Convert natural language input into executable code using AI
+- In-browser code execution using Pyodide and WebAssembly
+- Task-based learning system with predefined exercises
+- History feature to track previous inputs and results
+- User authentication system with database integration
 
-Input fuer JS/Python/C kommt aus dem Feld:
-- **"Eingaben (eine Zeile pro input)"**
+## How it Works
+Users describe a task in natural language (e.g. “Create a loop from 1 to 5”).  
+The system translates the input into code using AI and executes it directly in the browser.
 
-## Backend starten
+## Tech Stack
+- Java (backend)
+- JavaScript / HTML / CSS (frontend)
+- Pyodide & WebAssembly (browser execution)
+- OpenAI API (AI-based code generation)
 
-```bash
-cd server
+## Setup
+
+To run this project locally, you need to start the backend server and provide an OpenAI API key.
+
+### 1. Navigate to the server folder
+cd "path/to/your/server"
+
+### 2. Install dependencies
 npm install
-```
 
-PowerShell (Windows):
-```powershell
-$env:OPENAI_API_KEY="dein_api_key"
-node index.js
-```
+### 3. Set your API key
 
-CMD (Windows):
-```cmd
-set OPENAI_API_KEY=dein_api_key
-node index.js
-```
+$env:OPENAI_API_KEY="your_api_key"
 
-Backend laeuft auf:
-- `http://localhost:3000`
+### 4. Start the server
+npm start
 
-## Frontend starten
+## Requirements
+- Node.js
+- OpenAI API key
 
-- Datei `hauptmenue.html` im Browser oeffnen
-- Oder ueber einen einfachen Static-Server starten
+## Current Status
 
-## API
+The core functionality of the application is working as intended.  
+Users can generate and execute code, complete tasks, and view their history.
 
-### POST /generate
+Some features are still being improved:
+- Support for certain languages (e.g. C) is not yet fully implemented  
+- Minor UI and formatting issues may occur  
+- GDPR (DSGVO) compliance and an official imprint (Impressum) are not yet included  
 
-Request:
-```json
-{
-  "prompt": "...",
-  "language": "python"
-}
-```
+This project is actively being developed and continuously improved.
 
-Response:
-```json
-{
-  "code": "...",
-  "explanation": "..."
-}
-```
+## Purpose
+The goal of this project is to make programming more accessible by focusing on logic instead of syntax, especially for beginners.
 
-Fehler:
-```json
-{
-  "error": "message"
-}
-```
+## Language
+The application interface is in English.
 
-### POST /execute (C)
-
-Request:
-```json
-{
-  "code": "#include <stdio.h>\\nint main(){int x; scanf(\"%d\", &x); printf(\"%d\", x*10);}",
-  "language": "c",
-  "input": "5\\n"
-}
-```
-
-Response:
-```json
-{
-  "output": "50"
-}
-```
-
-## Hinweise
-
-- Wenn `OPENAI_API_KEY` fehlt, gibt `/generate` einen JSON-Fehler zurueck.
-- Fuer C-Ausfuehrung wird `gcc` am Server benoetigt.
-- Python benoetigt lokal keine Installation, da es im Browser via Pyodide laeuft.
+## Security Note
+The API key must be stored securely and should never be exposed in public repositories.
